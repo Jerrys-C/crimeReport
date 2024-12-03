@@ -132,7 +132,7 @@ end
 local fightAntiSpam = false
 local function fight()
     fightAntiSpam = true
-    exports.y_dispatch:Fight()
+    exports.crimeReport:Fight()
     SetTimeout(30 * 1000, function()
         fightAntiSpam = false
     end)
@@ -152,9 +152,9 @@ local function shotfired()
     shotsfiredAntiSpam = true
     weaponThreatAntiSpam = true
     if cache.vehicle then
-        exports.y_dispatch:DriveBy()
+        exports.crimeReport:DriveBy()
     else
-        exports.y_dispatch:Shooting()
+        exports.crimeReport:Shooting()
     end
     SetTimeout(30 * 1000, function()
         shotsfiredAntiSpam = false
@@ -193,7 +193,7 @@ local function recklessDriver()
 
         if recklessCount >= config.events.recklessDriver.reportThreshold then
             recklessAntiSpam = true
-            exports.y_dispatch:RecklessDriving(cache.vehicle)
+            exports.crimeReport:RecklessDriving(cache.vehicle)
             SetTimeout(config.events.recklessDriver.alertCoolDown * 1000, function()
                 recklessAntiSpam = false
             end)
@@ -212,7 +212,7 @@ local function carJacking()
         Wait(1000)
 
         if cache.vehicle then
-            exports.y_dispatch:CarJacking(cache.vehicle)
+            exports.crimeReport:CarJacking(cache.vehicle)
             SetTimeout(30 * 1000, function()
                 carJackAntiSpam = false
             end)
@@ -225,7 +225,7 @@ end
 
 local function weaponThreat()
     weaponThreatAntiSpam = true
-    exports.y_dispatch:WeaponThreat()
+    exports.crimeReport:WeaponThreat()
     SetTimeout(30 * 1000, function()
         weaponThreatAntiSpam = false
     end)
@@ -235,7 +235,7 @@ local vehicleTheftAntiSpam = false
 local function vehicleTheft()
     if cache.vehicle then
         vehicleTheftAntiSpam = true
-        exports.y_dispatch:VehicleTheft(cache.vehicle)
+        exports.crimeReport:VehicleTheft(cache.vehicle)
         SetTimeout(30 * 1000, function()
             vehicleTheftAntiSpam = false
         end)
@@ -245,7 +245,7 @@ end
 local murderAntiSpam = false
 local function murder(ped)
     murderAntiSpam = true
-    exports.y_dispatch:Murder()
+    exports.crimeReport:Murder()
     SetTimeout(30 * 1000, function()
         murderAntiSpam = false
     end)

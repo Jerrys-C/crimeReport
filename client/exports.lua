@@ -184,18 +184,18 @@ end
 exports('Murder', Murder)
 
 
-local function Explosion(coords)
-    TriggerServerEvent("y_dispatch:server:AddCall",{
-        tencodeid = "explosion",
-        tencode = tenCodes["explosion"].tencode,
-        location = GetLocation(coords),
-        type = 0,
-        coords = coords,
-        title = tenCodes["explosion"].title,
-        jobs = tenCodes["explosion"].jobs
-    })
-end
-exports('Explosion', Explosion)
+-- local function Explosion(coords)
+--     TriggerServerEvent("crimeReport:server:AddCall",{
+--         tencodeid = "explosion",
+--         tencode = tenCodes["explosion"].tencode,
+--         location = GetLocation(coords),
+--         type = 0,
+--         coords = coords,
+--         title = tenCodes["explosion"].title,
+--         jobs = tenCodes["explosion"].jobs
+--     })
+-- end
+-- exports('Explosion', Explosion)
 
 local function RecklessDriving(vehicle)
     local vehdata = GetVehicleData(vehicle)
