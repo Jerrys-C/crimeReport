@@ -15,6 +15,7 @@
 ## Requirements
 
 - The Dispatch part must be implemented by yourself.
+- Fivemanage: To capture screenshots during crimes, ensure that setr screenshot_basic_api_token is properly set in your server configuration.
 
 ## Built-in Supported Dispatch System
 
