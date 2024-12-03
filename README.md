@@ -1,0 +1,29 @@
+# Realistic NPC Crime Report
+
+## Features
+
+- Native game event support (such as fights, gunshots, reckless driving, carjacking, etc.).
+- No need for continuous loops, events are triggered by in-game actions.
+- Valid witness checks to ensure accurate reports.
+- Special event logic checks to prevent unnecessary reports.
+- Currently integrated dispatch support: rcore_dispatch.
+
+## Dependency
+- ox_lib
+- qbx_core (only for job bypassed)
+
+## Requirements
+
+- The Dispatch part must be implemented by yourself.
+
+## Built-in Supported Dispatch System
+
+- rcore_dispatch
+
+## Player Job Integration
+
+- Currently, Qbox is used to get the player's job information.
+- To adapt to other frameworks, simply modify function getPlayerJob().
+
+## Credits
+- Based on modifications and development from y_dispatch[https://github.com/TonybynMp4/y_dispatch].
