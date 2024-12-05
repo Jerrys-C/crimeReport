@@ -7,6 +7,10 @@ return {
         enabledJobWhitelist = false, -- Enable job whitelist for events (global)
         fight = {
             enabled = true,
+            alertCoolDown = 60, -- Time in seconds before alerting again (client side)
+            reportThreshold = 2, -- How many reports before alerting, Raising the threshold avoids triggering alerts from single, potentially minor incidents, reducing false positives.
+            reportInterval = 3, -- Time interval in seconds for counting reports (e.g., 15 seconds)
+            resetInterval = 60, -- Time interval in seconds for resetting the report count (e.g., 60 seconds)
             jobwhitelist = {
                 'police',
                 'sheriff',

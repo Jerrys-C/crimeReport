@@ -94,6 +94,15 @@ function GetLocation(coords)
 end
 --#endregion Getter Functions
 
+
+local function callPoliceAnim(ped)
+    Wait(1000)
+    lib.playAnim(ped, "cellphone@", "cellphone_call_listen_base", 8.0, -8.0, -1, 49, 0, false, false, false)
+    Wait(5000)
+    local playingAnim = IsEntityPlayingAnim(ped, "cellphone@", "cellphone_call_listen_base", 3)
+    return playingAnim
+end
+
 local invaildWitnessesTypes = {0, 1, 2, 3, 28} -- Player and Animal
 
 --- Checks if there is a valid report from the given witnesses.
@@ -106,7 +115,7 @@ local function checkValidReport(witnesses)
     local vaild = false
     local vaildWitness = nil
     for _, ped in ipairs(witnesses) do
-        if ped ~= cache.ped then
+        if ped ~= cache.ped and not IsPedDeadOrDying(ped, false) then
             for _, t in ipairs(invaildWitnessesTypes) do
                 if GetPedType(ped) == t then
                     goto checkNextPed
@@ -129,28 +138,55 @@ local function checkAnimalFirstReport(witnesses)
     end
 end
 
+
 local fightAntiSpam = false
-local function fight()
-    fightAntiSpam = true
-    exports.crimeReport:Fight()
-    SetTimeout(30 * 1000, function()
-        fightAntiSpam = false
-    end)
+local fightCheckCoolDown = false
+local fightCount = 0
+local fightResetTimer = nil
+
+local function resetFightCount()
+    fightCount = 0
+    fightResetTimer = nil
+end
+
+local function fight(caller)
+    if fightCheckCoolDown then return end
+    fightCheckCoolDown = true
+    SetTimeout(config.events.fight.reportInterval * 1000, function() fightCheckCoolDown = false end)
+    fightCount = fightCount + 1
+    if fightResetTimer == nil then
+        SetTimeout(config.events.fight.resetInterval * 1000, resetFightCount)
+        fightResetTimer = true
+    end
+    if fightCount >= config.events.fight.reportThreshold then
+        local res = callPoliceAnim(caller)
+        if not res then return end
+        fightAntiSpam = true
+        exports.crimeReport:Fight()
+        SetTimeout(config.events.fight.alertCoolDown * 1000, function()
+            fightAntiSpam = false
+        end)
+    end
 end
 
 local shotsfiredAntiSpam = false
 local byPassWeapons = config.events.shotsfired.byPassWeapons
 
-local function shotfired()
+local function shotfired(caller)
     local ped = cache.ped
     for k, _ in pairs(byPassWeapons) do
         if cache.weapon == GetHashKey(k) then return end
     end
     if IsPedCurrentWeaponSilenced(ped) and math.random() <= 0.98 then return end
     -- 2% chance to trigger the event if the weapon is silenced, ( real life weapons are not 100% silent ;c )
+    
+    local res = callPoliceAnim(caller)
+    Wait(100)
+    if not res or shotsfiredAntiSpam then return end
 
     shotsfiredAntiSpam = true
     weaponThreatAntiSpam = true
+
     if cache.vehicle then
         exports.crimeReport:DriveBy()
     else
@@ -290,12 +326,13 @@ end
 
 
 if config.events.fight.enabled then
-    AddEventHandler('CEventShockingSeenMeleeAction', function(witnesses, ped)
+    AddEventHandler('CEventShockingSeenMeleeAction', function(witnesses, _)
         Wait(100)
         if fightAntiSpam then return end
         if isPlayerJobBypassed(config.events.fight.jobwhitelist, getPlayerJob()) then return end
-        if not checkValidReport(witnesses) then return end
-        fight()
+        local caller = checkValidReport(witnesses)
+        if not caller then return end
+        fight(caller)
     end)
 end
 
@@ -304,8 +341,9 @@ if config.events.shotsfired.enabled then
         Wait(100)
         if shotsfiredAntiSpam then return end
         if isPlayerJobBypassed(config.events.shotsfired.jobwhitelist, getPlayerJob()) then return end
-        if not checkValidReport(witnesses) then return end
-        shotfired()
+        local caller = checkValidReport(witnesses)
+        if not caller then return end
+        shotfired(caller)
     end)
 end
 
