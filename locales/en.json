@@ -1,4 +1,7 @@
 {
+    "general": {
+        "unknown": "Unknown"
+    },
     "heading": {
         "title": "Heading:",
         "east": "East",

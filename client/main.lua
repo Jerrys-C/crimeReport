@@ -26,7 +26,7 @@ end
 ---@return table
 function GetVehicleData(vehicle)
     local vehicleData = {}
-    vehicleData.class = classes[GetVehicleClass(vehicle)]
+    vehicleData.class = classes[GetVehicleClass(vehicle)] or locale('general.unknown')
     vehicleData.plate = GetVehicleNumberPlateText(vehicle)
     vehicleData.id = NetworkGetNetworkIdFromEntity(vehicle)
     vehicleData.speed = GetEntitySpeed(vehicle)

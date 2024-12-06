@@ -1,4 +1,7 @@
 {
+    "general": {
+        "unknown": "未知"
+    },
     "heading": {
         "title": "朝向：",
         "east":"东",
