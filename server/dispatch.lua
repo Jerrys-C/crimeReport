@@ -34,7 +34,9 @@ local function triggerDispatch(source, data)
             vehDetails = vehDetails .. locale("vehDetails.model") .. data.doors .. data.class .. "-" .. data.model .. "\n"
             vehDetails = vehDetails .. locale("vehDetails.color") .. data.color .. "\n"
             vehDetails = vehDetails .. locale("vehDetails.plate") .. data.plate .. "\n"
-            vehDetails = vehDetails .. locale("vehDetails.speed") .. data.speed .. "\n"
+            if data.speed then
+                vehDetails = vehDetails .. locale("vehDetails.speed") .. data.speed .. "\n"
+            end
             vehDetails = vehDetails .. locale("heading.title") .. data.heading
         end
         local blip = data.blip

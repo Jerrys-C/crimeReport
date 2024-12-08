@@ -25,6 +25,9 @@ return {
                 'WEAPON_FIREEXTINGUISHER',
                 'WEAPON_SNOWBALL',
             },
+            byPassZones = {
+                { coords = vec3(-746.44, 4523.43, 87.29), range = 600.0 },
+            }
         },
         weaponThreat = {
             enabled = true,

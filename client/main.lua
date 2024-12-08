@@ -138,6 +138,19 @@ local function checkAnimalFirstReport(witnesses)
     end
 end
 
+local function isPlayerInBypassZone()
+    local zones = config.events.shotsfired.byPassZones
+    local playerCoords = GetEntityCoords(cache.ped)
+    for _, zone in ipairs(zones) do
+
+        local distance = #(playerCoords - zone.coords)
+        if distance <= zone.range then
+            return true, zone
+        end
+    end
+
+end
+
 
 local fightAntiSpam = false
 local fightCheckCoolDown = false
@@ -177,6 +190,7 @@ local function shotfired(caller)
     for k, _ in pairs(byPassWeapons) do
         if cache.weapon == GetHashKey(k) then return end
     end
+    if isPlayerInBypassZone() then return end
     if IsPedCurrentWeaponSilenced(ped) and math.random() <= 0.98 then return end
     -- 2% chance to trigger the event if the weapon is silenced, ( real life weapons are not 100% silent ;c )
     
