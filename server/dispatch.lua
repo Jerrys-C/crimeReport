@@ -23,7 +23,6 @@ local function triggerDispatch(source, data)
     local loc = data.location
     local alertType = data.tencodeid
     local vehDetails = ""
-    print("data", json.encode(data))
 
     if checkLocationCooldown(loc, alertType) then
         return

@@ -308,7 +308,6 @@ end
 ---@param playerjob any
 ---@return boolean
 local function isPlayerJobBypassed(jobs, playerjob)
-    print("isPlayerJobBypassed", json.encode(jobs), json.encode(playerjob))
     if not config.events.enabledJobWhitelist then return false end
     if jobs.jobs or jobs.types then
         if not jobs.jobs then goto skipjobs end
