@@ -1,8 +1,9 @@
 return {
     useScreenShot = false, -- Use a screenshot for the dispatch
     globalAlertDelay = 2000, -- Delay in seconds before trigger alert
-    useMPH = true, -- Use MPH instead of KMH
-
+    useMPH = false, -- Use MPH instead of KMH
+    Framework = "esx", -- Framework to use (esx | qbcore | qbx)
+    
     events = {
         enabledJobWhitelist = false, -- Enable job whitelist for events (global)
         fight = {

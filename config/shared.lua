@@ -183,5 +183,17 @@ return {
                 ref = "GTAO_FM_Events_Soundset",
             }
         },
+    },
+
+    origen_tenCodes = { -- ORIGEN_POLICE
+        ['10-59'] = 'RADARS',         -- Escort or vehicle theft monitoring
+        ['487'] = '215',              -- Vehicle theft
+        ['10-13'] = 'FORCE',          -- Officer in danger or critical incident (driveby, shooting)
+        ['10-10'] = 'FORCE',          -- Fight in progress
+        ['240'] = 'DRUGS',            -- Weapon threat (potentially linked to drug-related crimes)
+        ['187'] = 'FORCE',            -- Homicide (requires tactical response)
+        ['502'] = 'RADARS',           -- Reckless driving (road monitoring)
+        ['10-80'] = 'GENERAL',        -- Pursuit in progress (covers multiple incident types)
     }
+    
 }

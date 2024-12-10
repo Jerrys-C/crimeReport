@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local classes = { locale('classes.compact'), locale('classes.sedan'), locale('classes.suv'), locale('classes.coupe'), locale('classes.muscle'), locale('classes.sports_classic'), locale('classes.sports'), locale('classes.super'), locale('classes.motorcycle'), locale('classes.offroad'), locale('classes.industrial'), locale('classes.utility'), locale('classes.van'), locale('classes.service'), locale('classes.military'), locale('classes.truck') }
 local config = require 'config.client'
 
@@ -175,7 +176,7 @@ local function fight(caller)
         local res = callPoliceAnim(caller)
         if not res then return end
         fightAntiSpam = true
-        exports.crimeReport:Fight()
+        exports[GetCurrentResourceName()]:Fight()
         SetTimeout(config.events.fight.alertCoolDown * 1000, function()
             fightAntiSpam = false
         end)
@@ -202,9 +203,9 @@ local function shotfired(caller)
     weaponThreatAntiSpam = true
 
     if cache.vehicle then
-        exports.crimeReport:DriveBy()
+        exports[GetCurrentResourceName()]:DriveBy()
     else
-        exports.crimeReport:Shooting()
+        exports[GetCurrentResourceName()]:Shooting()
     end
     SetTimeout(30 * 1000, function()
         shotsfiredAntiSpam = false
@@ -243,7 +244,7 @@ local function recklessDriver()
 
         if recklessCount >= config.events.recklessDriver.reportThreshold then
             recklessAntiSpam = true
-            exports.crimeReport:RecklessDriving(cache.vehicle)
+            exports[GetCurrentResourceName()]:RecklessDriving(cache.vehicle)
             SetTimeout(config.events.recklessDriver.alertCoolDown * 1000, function()
                 recklessAntiSpam = false
             end)
@@ -262,7 +263,7 @@ local function carJacking()
         Wait(1000)
 
         if cache.vehicle then
-            exports.crimeReport:CarJacking(cache.vehicle)
+            exports[GetCurrentResourceName()]:CarJacking(cache.vehicle)
             SetTimeout(30 * 1000, function()
                 carJackAntiSpam = false
             end)
@@ -275,7 +276,7 @@ end
 
 local function weaponThreat()
     weaponThreatAntiSpam = true
-    exports.crimeReport:WeaponThreat()
+    exports[GetCurrentResourceName()]:WeaponThreat()
     SetTimeout(30 * 1000, function()
         weaponThreatAntiSpam = false
     end)
@@ -285,7 +286,7 @@ local vehicleTheftAntiSpam = false
 local function vehicleTheft()
     if cache.vehicle then
         vehicleTheftAntiSpam = true
-        exports.crimeReport:VehicleTheft(cache.vehicle)
+        exports[GetCurrentResourceName()]:VehicleTheft(cache.vehicle)
         SetTimeout(30 * 1000, function()
             vehicleTheftAntiSpam = false
         end)
@@ -295,7 +296,7 @@ end
 local murderAntiSpam = false
 local function murder(ped)
     murderAntiSpam = true
-    exports.crimeReport:Murder()
+    exports[GetCurrentResourceName()]:Murder()
     SetTimeout(30 * 1000, function()
         murderAntiSpam = false
     end)
@@ -335,7 +336,15 @@ end
 
 
 local function getPlayerJob()
-    return QBX.PlayerData.job
+    if config.Framework == 'qbcore' then
+        local QBCore = exports['qb-core']:GetCoreObject()
+        return QBCore.Functions.GetPlayerData().job
+    elseif config.Framework == 'esx' then
+        local ESX = exports['es_extended']:getSharedObject()
+        return ESX.PlayerData.job
+    elseif config.Framework == 'qbx' then
+        return QBX.PlayerData.job
+    end
 end
 
 
