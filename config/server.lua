@@ -1,7 +1,7 @@
 return {
     dispatchSystem = "origen_police", -- Dispatch system to use (rcore_dispatch | origen_police | ... )
     versionCheck = true, -- Get notified when a new version is available on GitHub
-    SpeedUnit = "km/h", -- Speed unit to display in the dispatch (km/h | mph)
+    speedUnit = "km/h", -- Speed unit to display in the dispatch (km/h | mph)
 
 
     origen = {

@@ -67,7 +67,7 @@ local function triggerDispatch(source, data)
         metadata.model = data.model or nil
         metadata.color = data.color or nil
         metadata.plate = data.plate or nil
-        metadata.speed = data.speed and (data.speed .. (Config.SpeedUnit or "")) or nil
+        metadata.speed = data.speed and (data.speed .. (Config.speedUnit or "")) or nil
         metadata.weapon = data.weapon or nil
         metadata.name = data.jobs.types or nil
         metadata.unit = data.unit or nil

@@ -6,7 +6,7 @@
 - No need for continuous loops, events are triggered by in-game actions.
 - Valid witness checks to ensure accurate reports.
 - Special event logic checks to prevent unnecessary reports.
-- Currently integrated dispatch support: rcore_dispatch.
+- NPC phone call to report to the police with corresponding animation, which can be interrupted to cancel the report.
 
 ## Dependency
 - ox_lib
@@ -15,6 +15,7 @@
 - ESX
 - QBCore (Not tested)
 - QBX
+- To adapt to other frameworks, simply modify function getPlayerJob().
 
 ## Requirements
 - The Dispatch part must be implemented by yourself.
@@ -23,11 +24,7 @@
 ## Built-in Supported Dispatch System
 
 - rcore_dispatch
-
-## Player Job Integration
-
-- Currently, Qbox is used to get the player's job information.
-- To adapt to other frameworks, simply modify function getPlayerJob().
+- origen_police (Integrated by [IOxee](https://github.com/IOxee))
 
 ## Credits
 - Based on modifications and development from y_dispatch[https://github.com/TonybynMp4/y_dispatch].
